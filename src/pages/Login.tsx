@@ -3,8 +3,23 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
 
-const LoginForm = () => {
+
+
+export interface SimpleDialogProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+const LoginForm = (props: SimpleDialogProps) => {
+  const { onClose, open } = props;
+
+  const handleClose = () => {
+    onClose();
+  };
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -55,49 +70,49 @@ const LoginForm = () => {
   };
 
   return (
-    <Box width={'100%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          maxWidth: '500px',
-          margin: 'auto',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-          backgroundColor: 'white',
-        }}
-      >
-        <Typography variant='h2' color={'black'}>
-          Movies Time
-        </Typography>
-        <TextField
-          fullWidth
-          label="Username"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          error={Boolean(errors.username)}
-          helperText={errors.username}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          type="password"
-          label="Password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          error={Boolean(errors.password)}
-          helperText={errors.password}
-          margin="normal"
-          sx={{ mt: 2 }}
-        />
-        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-          Login
-        </Button>
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>Login To Movies Time</DialogTitle>
+      <Box width={'100%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            maxWidth: '500px',
+            margin: 'auto',
+            padding: '20px',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            backgroundColor: 'white',
+          }}
+        >
+          <TextField
+            fullWidth
+            label="Username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            error={Boolean(errors.username)}
+            helperText={errors.username}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            type="password"
+            label="Password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            error={Boolean(errors.password)}
+            helperText={errors.password}
+            margin="normal"
+            sx={{ mt: 2 }}
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+            Login
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </Dialog>
   );
 };
 
