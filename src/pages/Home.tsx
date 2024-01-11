@@ -1,5 +1,5 @@
 import useFetch from "../hooks/useFetch";
-import MovieCard from '../components/MovieCard';
+import MovieCard from '../components/MovieCard.tsx';
 import * as React from 'react';
 import { Box, Pagination, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -17,14 +17,14 @@ const Home = () => {
         }
         return { url: 'getMovies', query: `page=${page}` };
     }
-    const { data, error } = useFetch(getParams())
+    const { data } = useFetch(getParams())
 
-    const handleChange = (arg: any, value: number) => {
+    const handleChange = (arg: React.SyntheticEvent, value: number) => {
         setPage(value)
     }
 
-    const handleSearch = (e) => {
-        const value = e.target.value
+    const handleSearch = (e: React.SyntheticEvent) => {
+        const value = (e.target as HTMLInputElement).value
         setSearchQuery(value)
     }
 

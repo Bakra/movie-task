@@ -21,12 +21,10 @@ export default function ResponsiveDrawer(props: Props) {
         setLogin(!openlogin)
     }
 
-    const handleLogin = (arg: unknown) => {
+    const handleLogin = (arg?: unknown) => {
         login(arg)
         toggleLogin()
     }
-
-    console.log(user, 'user')
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -42,8 +40,8 @@ export default function ResponsiveDrawer(props: Props) {
                         Movies Time
                     </Typography>
                     {
-                        loggedIn ? 
-                            <Box>{`Hello, ${user?.name}`}
+                        loggedIn && user ? 
+                            <Box>{`Hello, ${user.name}`}
                                 <Button color='secondary' variant="contained" onClick={logout} sx={{ml: 5}}>
                                     Log Out
                                 </Button>

@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 const UserContext = createContext({
     loggedIn: false,
     login: (arg: unknown) => { console.log(arg)},
-    user: null,
+    user: {},
     logout: () => {}
 });
 

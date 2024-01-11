@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +10,17 @@ import { Link } from 'react-router-dom';
 
 const ImageURL = 'https://image.tmdb.org/t/p/w500/';
 
-export default function MediaCard({ movie }) {
+interface MovieProps {
+  movie: {
+    poster_path: string,
+    id: number,
+    original_title: string,
+    release_date: string,
+    popularity: string
+  };
+}
+
+const MovieCard = ({ movie }: MovieProps) => {
 
   return (
     <Link to={`/${movie.id}`}>
@@ -41,3 +50,5 @@ export default function MediaCard({ movie }) {
       </Link>
   );
 }
+
+export default MovieCard;

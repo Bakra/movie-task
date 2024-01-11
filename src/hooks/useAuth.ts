@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useAuth = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
@@ -12,15 +12,15 @@ export const useAuth = () => {
     }
   }, []);
 
-  const login = (user: any) => {
+  const login = (userData: object) => {
       setLoggedIn(true)
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
       setLoggedIn(false)
-      setUser(null);
+      setUser({});
       localStorage.removeItem('user');
   };
 
