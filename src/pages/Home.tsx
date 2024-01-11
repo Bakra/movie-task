@@ -11,7 +11,6 @@ const Home = () => {
     const [ searchQuery, setSearchQuery ] = React.useState('')
 
     const getParams = () => {
-        console.log('hello')
         if (searchQuery?.length > 3) {
             return { url: 'searchMovies', query: `query=${searchQuery}&page=${page}`};
         }

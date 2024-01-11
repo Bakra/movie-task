@@ -22,7 +22,7 @@ const useFavourates = () => {
     const removeItem = (id: number) => {
         setFavourates([...favourates.filter(item => item !== id)])
     }
-    return { addToFav, isInFavourates, removeItem }
+    return { addToFav, isInFavourates, removeItem, favourates }
 }
 
 

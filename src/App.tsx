@@ -12,10 +12,7 @@ function App() {
   return (
     <>
       <UserProvider>
-        <SideBar>
-          <Box> <RouterProvider router={router} /></Box>
-          
-        </SideBar>
+        <RouterProvider router={router}></RouterProvider>
       </UserProvider>
     </>
   )

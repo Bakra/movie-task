@@ -8,15 +8,13 @@ import { Button } from '@mui/material';
 import { createPortal } from 'react-dom';
 import LoginForm from '../pages/Login';
 import UserContext from '../contexts/authContext';
+import { Outlet, Link } from 'react-router-dom';
 
-interface Props {
-    children: React.ReactNode
-}
+export default function ResponsiveDrawer() {
 
-export default function ResponsiveDrawer(props: Props) {
-    const { children } = props;
     const [openlogin, setLogin] = React.useState(false)
     const { loggedIn, user, logout, login } = React.useContext(UserContext)
+    
     const toggleLogin = () => {
         setLogin(!openlogin)
     }
@@ -36,13 +34,30 @@ export default function ResponsiveDrawer(props: Props) {
                     display: 'flex',
                     justifyContent: 'space-between'
                 }}>
-                    <Typography color={'white'} variant='h6'>
-                        Movies Time
-                    </Typography>
+                    <Box display={'flex'}>
+                        <Typography color={'white'} variant='h6' sx={{ mr: 4}}>
+                            Movies Time
+                        </Typography>
+                        <Link to={'/'}>
+                            <Typography color={'white'} variant='h6'>
+                                Home
+                            </Typography>
+                        </Link>
+                    </Box>
                     {
                         loggedIn && user ? 
-                            <Box>{`Hello, ${user.name}`}
-                                <Button color='secondary' variant="contained" onClick={logout} sx={{ml: 5}}>
+                            <Box display={'flex'}>
+                                <Link to='/favourates'>
+                                    <Typography color={'white'} variant='h6'>
+                                        Favourates
+                                    </Typography>
+                                </Link>
+
+                                <Typography color={'white'} variant='h6' sx={{mx: 4}}>
+                                    {`Hello, ${user.name}`}
+                                </Typography>
+
+                                <Button color='secondary' variant="contained" onClick={logout}>
                                     Log Out
                                 </Button>
                             </Box> : <Button color='secondary' variant="contained" onClick={() => toggleLogin(true)}>
@@ -56,7 +71,7 @@ export default function ResponsiveDrawer(props: Props) {
                 component="main"
                 sx={{ flexGrow: 1, p: 3 }}
             >
-                { children }
+                <Outlet />
 
                 {
                     openlogin ? createPortal(<LoginForm onClose={toggleLogin} handleLogIn={handleLogin} open={openlogin} />, document.body) : ''
