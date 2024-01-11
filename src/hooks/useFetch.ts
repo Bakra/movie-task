@@ -9,8 +9,8 @@ interface UseFetchProps {
     params?: string | number
 }
 
-const BaseURL = 'https://api.themoviedb.org/3'
-const APIKEY = '837ddd7bf3645dab7c2e0b4d81c44b22'
+const BaseURL = import.meta.env.VITE_BASE_URL;
+const APIKEY = import.meta.env.VITE_API_KEY;
 
 const apiUrls: apiURLSInfo = {
     getMovies: 'movie/popular',

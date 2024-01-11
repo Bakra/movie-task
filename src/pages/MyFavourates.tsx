@@ -9,7 +9,7 @@ const MyFavourates = () => {
     const [favData, setFavData] = useState<object[]>([])
 
     const fetchFavourates = async () => {
-        const promiseArr = favourates?.map((item: number) => fetch(`https://api.themoviedb.org/3/movie/${item}?api_key=837ddd7bf3645dab7c2e0b4d81c44b22`))
+        const promiseArr = favourates?.map((item: number) => fetch(`${import.meta.env.VITE_BASE_URL}/movie/${item}?api_key=${import.meta.env.VITE_API_KEY}`))
         const response: object[] = await Promise.all(promiseArr).then(res => {
             return Promise.all([ ...res.map(item => item.json())])
         })

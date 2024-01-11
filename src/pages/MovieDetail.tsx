@@ -12,7 +12,8 @@ import { useContext } from 'react';
 import useFavourates from '../hooks/useFavourates';
 
 export default function MainFeaturedPost() {
-    const ImageURL = 'https://image.tmdb.org/t/p/original/';
+
+    const ImageURL = import.meta.env.VITE_ORIGINAL_IMAGE_URL;
 
     const { id } = useParams();
     const { data } = useFetch({ url: 'getMovieById', params: id });
