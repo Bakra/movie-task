@@ -120,13 +120,13 @@ export default function MainFeaturedPost() {
                 <Box sx={{ textAlign: 'left', mb: 4 }}>
                     <span> <strong> Geners: </strong></span>
                     {
-                        data.genres?.map((item: any, index: number) => <span key={index + 'genres'}> {item.name}, </span>)
+                        data.genres?.map((item: object, index: number) => <span key={index + 'genres'}> {item.name}, </span>)
                     }
                 </Box>
                 <Box sx={{ textAlign: 'left', mb: 4 }}>
                     <span> <strong> Available Audio: </strong></span>
                     {
-                        data.spoken_languages?.map((item: any, index: number) => <span key={index + 'lan'}> {item.name}({item.english_name}), </span>)
+                        data.spoken_languages?.map((item: object, index: number) => <span key={index + 'lan'}> {item.name}({item.english_name}), </span>)
                     }
                 </Box>
                 <Box>
