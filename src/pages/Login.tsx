@@ -2,28 +2,27 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-
-
+import { useAuth } from '../hooks/useAuth';
 
 export interface SimpleDialogProps {
   open: boolean;
   onClose: () => void;
+  handleLogIn: () => void
 }
 
 const LoginForm = (props: SimpleDialogProps) => {
-  const { onClose, open } = props;
-
+  const { onClose, open, handleLogIn } = props;
+  const { login } = useAuth()
   const handleClose = () => {
     onClose();
   };
+  
 
   const [formData, setFormData] = useState({
     username: '',
-    password: '',
-    rememberMe: false,
+    password: ''
   });
 
   const [errors, setErrors] = useState({
@@ -56,6 +55,9 @@ const LoginForm = (props: SimpleDialogProps) => {
     if (validateForm()) {
       // Add your login logic here
       console.log('Login successful');
+      handleLogIn({
+        name: formData.username
+      })
     } else {
       console.log('Login failed');
     }

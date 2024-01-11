@@ -5,16 +5,18 @@ import {
 } from 'react-router-dom';
 import { Box } from '@mui/material';
 import router from './router';
+import { UserProvider } from './contexts/authContext';
 
 function App() {
 
   return (
     <>
-      <SideBar>
-        <Box>
-          <RouterProvider router={router} />
-        </Box>
-      </SideBar>
+      <UserProvider>
+        <SideBar>
+          <Box> <RouterProvider router={router} /></Box>
+          
+        </SideBar>
+      </UserProvider>
     </>
   )
 }

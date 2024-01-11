@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { createPortal } from 'react-dom';
 import LoginForm from '../pages/Login';
+import UserContext from '../contexts/authContext';
 
 interface Props {
     children: React.ReactNode
@@ -14,9 +15,18 @@ interface Props {
 
 export default function ResponsiveDrawer(props: Props) {
     const { children } = props;
-    const [login, setLogin] = React.useState(false)
+    const [openlogin, setLogin] = React.useState(false)
+    const { loggedIn, user, logout, login } = React.useContext(UserContext)
+    const toggleLogin = () => {
+        setLogin(!openlogin)
+    }
 
-    const toggleLogin = () => setLogin(!login)
+    const handleLogin = (arg: unknown) => {
+        login(arg)
+        toggleLogin()
+    }
+
+    console.log(user, 'user')
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -31,9 +41,17 @@ export default function ResponsiveDrawer(props: Props) {
                     <Typography color={'white'} variant='h6'>
                         Movies Time
                     </Typography>
-                    <Button color='secondary' variant="contained" onClick={toggleLogin}>
+                    {
+                        loggedIn ? 
+                            <Box>{`Hello, ${user?.name}`}
+                                <Button color='secondary' variant="contained" onClick={logout} sx={{ml: 5}}>
+                                    Log Out
+                                </Button>
+                            </Box> : <Button color='secondary' variant="contained" onClick={() => toggleLogin(true)}>
                         Login
-                    </Button>
+                        </Button>
+                    }
+                    
                 </Toolbar>
             </AppBar>
             <Box
@@ -41,8 +59,9 @@ export default function ResponsiveDrawer(props: Props) {
                 sx={{ flexGrow: 1, p: 3 }}
             >
                 { children }
+
                 {
-                    login ? createPortal(<LoginForm onClose={toggleLogin} open={login} />, document.body) : ''
+                    openlogin ? createPortal(<LoginForm onClose={toggleLogin} handleLogIn={handleLogin} open={openlogin} />, document.body) : ''
                 }
             </Box>
         </Box>

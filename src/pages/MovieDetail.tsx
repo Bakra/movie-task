@@ -6,12 +6,15 @@ import Box from '@mui/material/Box';
 import useFetch from '../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { Button, IconButton } from '@mui/material';
-import WestIcon from '@mui/icons-material/West'; 
+import WestIcon from '@mui/icons-material/West';
+import { useAuth } from '../hooks/useAuth';
+
 export default function MainFeaturedPost() {
     const ImageURL = 'https://image.tmdb.org/t/p/original/';
 
     const { id } = useParams();
     const { data, error } = useFetch({ url: 'getMovieById', params: id });
+    const { loggedIn } = useAuth()
 
     const getImageURL = (arg?: string) => {
         return arg ? `${ImageURL}${arg}` : '/assets/no-img.png'
@@ -119,8 +122,11 @@ export default function MainFeaturedPost() {
                         data.spoken_languages?.map((item: any, index: number) => <span key={index + 'lan'}> {item.name}({item.english_name}), </span>)
                     }
                 </Box>
+                {
+                    loggedIn ? "I am logged In" : ' Noy loggrd In'
+                }
                 <Box>
-                    <Button color='primary' href={data.homepage} variant='contained' style={{ textDecoration: 'none', color: 'white' }}>
+                    <Button color='primary' href={data.homepage} variant='contained' style={{ textDecoration: 'none', color: 'white' }} target='_blank'>
                         Watch Now
                     </Button>
                 </Box>
